@@ -15,7 +15,7 @@ public class SampleController {
             model.addAttribute("message", "Hello Spring Security");
         }
         else {
-            model.addAttribute("message", "Hello " + principal.getName());
+            model.addAttribute("message", "Hello, " + principal.getName());
         }
 
         return "index";
