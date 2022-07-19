@@ -1,5 +1,7 @@
 package me.whiteship.demospringsecurityform.config;
 
+import me.whiteship.demospringsecurityform.account.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,10 +13,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+    @Autowired
+    AccountService accountService;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                    .mvcMatchers("/", "/info").permitAll()
+                    .mvcMatchers("/", "/info", "/account/**").permitAll()
                     .mvcMatchers("/admin").hasRole("ADMIN")
                     .anyRequest().authenticated();
 
@@ -22,11 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic();
     }
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("keesun").password("{noop}123").roles("USER").and()
-                .withUser("chulmin").password("{noop}fe26ming").roles("USER").and()
-                .withUser("admin").password("{noop}!@#").roles("ADMIN");
+        auth.userDetailsService(accountService);
     }
 }
