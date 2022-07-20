@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/user").hasRole("USER")
                 .anyRequest().authenticated()
                 .expressionHandler(expressionHandler());
-
+ 
         http.formLogin();
         http.httpBasic();
     }
