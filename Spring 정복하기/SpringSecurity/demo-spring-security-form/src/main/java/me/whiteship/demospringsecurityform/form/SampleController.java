@@ -1,5 +1,7 @@
 package me.whiteship.demospringsecurityform.form;
 
+import me.whiteship.demospringsecurityform.account.AccountContext;
+import me.whiteship.demospringsecurityform.account.AccountRepositroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,11 @@ public class SampleController {
 
     @Autowired
     SampleService sampleService;
+
+    @Autowired
+    AccountRepositroy accountRepositroy;
+
+
 
     @GetMapping("/")
     public String index(Model model, Principal principal) {
@@ -34,10 +41,11 @@ public class SampleController {
     @GetMapping("/dashboard")
     public String dashboard(Model model, Principal principal) {
         model.addAttribute("message", "Hello " + principal.getName());
+        AccountContext.setAccount(accountRepositroy.findByUsername(principal.getName()));
         sampleService.dashboard();
         return "dashboard";
     }
-    @GetMapping("/admin") 
+    @GetMapping("/admin")
     public String admin(Model model, Principal principal) {
         model.addAttribute("message", "Hello Admin, " + principal.getName());
         return "admin";
