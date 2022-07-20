@@ -19,6 +19,6 @@ public class AnotherSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .antMatcher("/account/**")
                     .authorizeRequests()
-                    .anyRequest().permitAll();
+                    .anyRequest().permitAll(); 
     }
 }
