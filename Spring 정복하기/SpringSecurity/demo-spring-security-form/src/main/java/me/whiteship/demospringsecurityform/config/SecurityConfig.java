@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .anyRequest().authenticated()
                 .expressionHandler(expressionHandler());
-
+  
         http.formLogin();
         http.httpBasic();
 
