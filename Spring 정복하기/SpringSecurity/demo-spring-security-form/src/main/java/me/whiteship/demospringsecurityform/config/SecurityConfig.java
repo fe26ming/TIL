@@ -55,6 +55,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin();
         http.httpBasic();
 
+        http.logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/");
+//                        .deleteCookies();
+
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
     }
 }
